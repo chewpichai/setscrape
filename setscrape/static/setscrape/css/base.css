@@ -1,0 +1,59 @@
+body {
+  font: 12px/1.4em Verdana,sans-serif;
+  padding: 1%;
+}
+
+a {
+  text-decoration: none;
+}
+
+.sector-wrapper {
+  margin: 8px;
+  width: 200px;
+  border: 1px solid blue;
+  padding: 4px;
+}
+
+.sector-wrapper h2 {
+  text-align: center;
+  font-size: 1.2em;
+  border-bottom: 1px solid green;
+  padding: 0 0 4px 0;
+  margin: 0;
+}
+
+.sector-wrapper ul {
+  overflow: hidden;
+  padding: 0;
+}
+
+.sector-wrapper li {
+  list-style-type: none;
+  float: left;
+  padding: 4px;
+}
+
+/* ---- financial-data-wrapper --------------------------------------------- */
+
+.financial-data-wrapper {
+  overflow: auto;
+}
+
+.financial-data {
+  float: left;
+}
+
+.financial-data th,
+.financial-data td {
+  padding: 4px;
+}
+
+.financial-data .name {
+  text-align: right;
+  width: 100px;
+}
+
+.financial-data .val {
+  width: 100px;
+}
+/* ---- end financial-data-wrapper ---- */

@@ -1,0 +1,24 @@
+{% extends 'setscrape/base.html' %}
+
+{% load static %}
+
+{% block js %}
+  <script type="text/javascript" src="{% static 'setscrape/js/jquery.isotope.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'setscrape/js/index.js' %}"></script>
+{% endblock %}
+
+{% block main %}
+  {% regroup symbols by sector as sector_list %}
+  <section class="sector-list-wrapper">
+    {% for sector in sector_list %}
+      <div class="sector-wrapper">
+        <h2>{{ sector.grouper }}</h2>
+        <ul>
+          {% for symbol in sector.list %}
+            <li><a href="{{ symbol.get_absolute_url }}">{{ symbol.symbol }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endfor %}
+  </section>
+{% endblock %}

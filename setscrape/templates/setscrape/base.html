@@ -1,0 +1,17 @@
+{% load static %}
+
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title>SET</title>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    {% block js %}{% endblock %}
+    <link rel="stylesheet" href="{% static 'setscrape/css/normalize.css' %}" />
+    <link rel="stylesheet" href="{% static 'setscrape/css/base.css' %}" />
+    {% block css %}{% endblock %}
+  </head>
+  <body>
+    <div class="main-content">{% block main %}{% endblock %}</div>
+  </body>
+</html>

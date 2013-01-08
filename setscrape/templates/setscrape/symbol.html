@@ -1,0 +1,43 @@
+{% extends 'setscrape/base.html' %}
+
+{% load humanize static %}
+
+{% block js %}
+  <script src="http://code.highcharts.com/stock/highstock.src.js"></script>
+  <script type="text/javascript" src="{% static 'setscrape/js/symbol.js' %}"></script>
+{% endblock %}
+
+{% block main %}
+  <h1>{{ symbol }}</h1>
+  <div id="container" symbol="{{ symbol.symbol }}"></div>
+  
+  <!-- Financial Statement  -->
+  {% regroup symbol.finances.all by date.year as year_list %}
+  <section class="financial-data-wrapper">
+    {% for year in year_list %}
+      <table class="financial-data">
+        <caption>{{ year.grouper }}</caption>
+        {% for finance in year.list %}
+          <tr>
+            <th class="name">{{ finance.name }}</th>
+            <td class="val">{% if finance.value %}{{ finance.value|intcomma }}{% else %}-{% endif %}</td>
+          </tr>
+        {% endfor %}
+      </table>
+    {% endfor %}
+  </section>
+  <!-- End Financial Statement  -->
+  
+  <!-- Sector -->
+  <section>
+    <h2>{{ symbol.sector }}</h2>
+    <table class="symbol-list">
+      {% for s in symbol.sector.symbols.all %}
+        <tr>
+          <td><a href="{{ s.get_absolute_url }}">{{ s.symbol }}</a></td>
+        </tr>
+      {% endfor %}
+    </table>
+  </section>
+  <!-- End Sector -->
+{% endblock %}
