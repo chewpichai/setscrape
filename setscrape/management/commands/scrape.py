@@ -20,6 +20,8 @@ class Command(BaseCommand):
                     make_option('--numdays', action='store'))
             
     def handle(self, *args, **options):
+        symbols = []
+        
         if not options or not options.get('numdays'):
             numdays = 1
         else:
@@ -27,17 +29,24 @@ class Command(BaseCommand):
             
         if options.get('sector'):
             sector = Sector.objects.get(name=options['sector'])
-            symbols = sector.symbols.all()
-        else:
-            if not args:
-                symbols = Symbol.objects.exclude(stocks__isnull=True)
-            else:
-                args = map(lambda s: s.upper(), args)
-                symbols = Symbol.objects.filter(symbol__in=args)
+            symbols = sector.symbols.exclude(stocks__isnull=True)
+        
+        if args:
+            args = map(lambda s: s.upper(), args)
+            symbols = Symbol.objects.filter(symbol__in=args)
         
         for symbol in symbols:
             save_symbol(symbol, numdays)
             time.sleep(DELAY)
+            
+        if symbols: return
+        
+        for sector in Sector.objects.all():
+            for symbol in sector.symbols.exclude(stocks__isnull=True):
+                save_symbol(symbol, numdays)
+                time.sleep(3)
+            print '----------- %s -----------' % sector
+            time.sleep(DELAY * 5)
             
             
 def save_symbol(symbol, num_days):
