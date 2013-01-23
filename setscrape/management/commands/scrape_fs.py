@@ -1,6 +1,7 @@
 # coding=utf8>
 from bs4 import BeautifulSoup
 from decimal import Decimal, InvalidOperation
+from django.core.exceptions import MultipleObjectsReturned
 from django.core.management.base import BaseCommand
 from django.utils.http import urlquote_plus
 from setscrape.models import Symbol, FinancialData
@@ -44,7 +45,10 @@ class Command(BaseCommand):
                         except InvalidOperation:
                             value = None
                         try:
-                            fs = FinancialData.objects.get(symbol=symbol, date__year=date.year, name=name, name_th=name)
+                            fs = FinancialData.objects.get(symbol=symbol, date__year=date.year, name=name)
+                        except MultipleObjectsReturned:
+                            FinancialData.objects.filter(symbol=symbol, date__year=date.year, name=name).delete()
+                            fs = FinancialData(symbol=symbol, name=name, name_th=name)
                         except FinancialData.DoesNotExist:
                             fs = FinancialData(symbol=symbol, name=name, name_th=name)
                         fs.date = date
