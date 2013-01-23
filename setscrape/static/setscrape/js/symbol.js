@@ -1,10 +1,10 @@
 $(function() {
-    var symbol = $('#container').attr('symbol');
+    var symbol = $('#symbol-graph-wrapper').attr('symbol');
     $.getJSON('/api/?method=get_stock&symbol=' + encodeURIComponent(symbol), function(data) {
         // create the chart
     	chart = new Highcharts.StockChart({
 			chart : {
-				renderTo : 'container'
+				renderTo : 'symbol-graph-wrapper'
 			},
 
 			rangeSelector : {

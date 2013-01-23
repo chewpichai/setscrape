@@ -7,6 +7,18 @@ a {
   text-decoration: none;
 }
 
+h1 {
+  line-height: 2em;
+}
+
+.red {
+  color: #f00;
+}
+
+#symbol-graph-wrapper {
+  height: 400px;
+}
+
 .sector-wrapper {
   margin: 8px;
   width: 200px;
@@ -46,14 +58,10 @@ a {
 .financial-data th,
 .financial-data td {
   padding: 4px;
-}
-
-.financial-data .name {
-  text-align: right;
-  width: 100px;
+  border: 1px solid #ccc;
 }
 
 .financial-data .val {
-  width: 100px;
+  text-align: center;
 }
 /* ---- end financial-data-wrapper ---- */

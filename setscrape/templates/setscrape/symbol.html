@@ -9,22 +9,46 @@
 
 {% block main %}
   <h1>{{ symbol }}</h1>
-  <div id="container" symbol="{{ symbol.symbol }}"></div>
+  <div id="symbol-graph-wrapper" symbol="{{ symbol.symbol }}"></div>
   
   <!-- Financial Statement  -->
   {% regroup symbol.finances.all by date.year as year_list %}
   <section class="financial-data-wrapper">
-    {% for year in year_list %}
-      <table class="financial-data">
-        <caption>{{ year.grouper }}</caption>
-        {% for finance in year.list %}
+    <h2>Financial Statement</h2>
+    
+    <table class="financial-data">
+      <thead>
+        <tr>
+          <th>Year</th>
+          <th>Assets</th>
+          <th>Liabilities</th>
+          <th>Equity</th>
+          <th>Paid-up Capital</th>
+          <th>Revenue</th>
+          <th>Net Profit</th>
+          <th>EPS (Baht)</th>
+          <th>ROA (%)</th>
+          <th>ROE (%)</th>
+          <th>Net Profit Margin (%)</th>
+          <th>Last Price (Baht)</th>
+          <th>Market Cap.</th>
+          <th>P/E</th>
+          <th>P/BV</th>
+          <th>Book Value per share (Baht)</th>
+          <th>Dvd. Yield (%)</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for year in year_list %}
           <tr>
-            <th class="name">{{ finance.name }}</th>
-            <td class="val">{% if finance.value %}{{ finance.value|intcomma }}{% else %}-{% endif %}</td>
+            <td class="val">{{ year.grouper }}</td>
+            {% for finance in year.list %}
+              <td class="val {% if finance.value < 0 %}red{% endif %}">{% if finance.value %}{{ finance.value|floatformat:'-2'|intcomma }}{% else %}-{% endif %}</td>
+            {% endfor %}
           </tr>
         {% endfor %}
-      </table>
-    {% endfor %}
+      </tbody>
+    </table>
   </section>
   <!-- End Financial Statement  -->
   

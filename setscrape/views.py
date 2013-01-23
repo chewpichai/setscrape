@@ -17,5 +17,5 @@ def get_index(request):
 
 
 def get_symbol(request, symbol):
-    symbol = get_object_or_404(Symbol, symbol=symbol)
+    symbol = get_object_or_404(Symbol, symbol=symbol.upper())
     return render(request, 'setscrape/symbol.html', locals())
