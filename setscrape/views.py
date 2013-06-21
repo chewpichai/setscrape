@@ -12,7 +12,7 @@ def get_api(request):
 
 
 def get_index(request):
-    symbols = Symbol.objects.all()
+    symbols = Symbol.objects.exclude(stocks__isnull=True)
     return render(request, 'setscrape/index.html', locals())
 
 
