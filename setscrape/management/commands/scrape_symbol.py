@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 from decimal import Decimal
 from django.core.management.base import BaseCommand
 from django.utils.http import urlquote_plus
-# from setscrape.models import Symbol, Sector
+from setscrape.models import Symbol, Sector
 import datetime
 import urllib2
 
@@ -16,6 +16,7 @@ class Command(BaseCommand):
             data['symbol'] = symbol
             data.update(get_detail(data['symbol']))
             Symbol.objects.create(**data)
+            print '--- ADDED %s ---' % symbol
                 
 
 def get_detail(symbol):
